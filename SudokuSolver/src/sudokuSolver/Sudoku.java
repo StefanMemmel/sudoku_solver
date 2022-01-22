@@ -18,7 +18,6 @@ public Sudoku(){
 		 int ErrorCell[]={-1,-1};
 		freeCells.add(ErrorCell);
 		return solve(matrix, 0);
-
 	}
 
 	static int getNumberFromBlock(int[][] matrix, int startDigit){
@@ -67,21 +66,17 @@ public Sudoku(){
 		
 	}
 	
-	
-
-//	static int[][]  solve(int[][] matrix, int startDigit){
+	 
 	private static int[][] solve(int[][] matrix, int startDigit){
 
  
 		int r_n, c_n, r_nminus1, c_nminus1; // if the 
-//		int startcell[]={r_nminus1, c_nminus1};
-//		freeCells.add(startcell); //  important !!!
-//		
+ 	
 		
 		int	newDigit=startDigit;
 	 
 	  
-		while(findFirstZero(matrix)[0]!=-1){  // Abbruchkriterium keine 0 mehr in Matrix
+		while(findFirstZero(matrix)[0]!=-1){  // no 0 in the sudoku anymore
 			
 			r_n=findFirstZero(matrix)[0];
 			c_n=findFirstZero(matrix)[1];
@@ -94,38 +89,25 @@ public Sudoku(){
 					r_nminus1= freeCells.get(freeCells.size()-1)[0];
 					c_nminus1= freeCells.get(freeCells.size()-1)[1];
 					freeCells.remove(freeCells.size()-1 ); //delete last element
-					//if(freeCells.size()>1){
-				//	 freeCells.remove(freeCells.size()-2); //delete element that was added before the current element
-					//}
+				 
 					 startDigit=matrix[r_nminus1][c_nminus1];
 					 matrix[r_nminus1][c_nminus1]=0;  // set last cell =0
 					matrix[r_n][c_n]=0;
 				 	solve(matrix,startDigit);
-				//	break;
+			 
 				}
 				
 			}while(rowAndColumnUnique(matrix, r_n, c_n)==false); 
 			int cell[]={r_n, c_n};  // !!!!
 			freeCells.add(cell); //add current Element
-			//printFreeCells(freeCells);
+			 
 			newDigit= 0; // start search for the digit in the next cell with newDigit=0
 			
 		}
 		return matrix;
 	}
 		
-	private static void printFreeCells(ArrayList<int[]> freeCells2) {
-	// TODO Auto-generated method stub
-		for(int i= 0; i<freeCells2.size(); i++){
-			System.out.print("("+freeCells2.get(i)[0]+"|"+freeCells2.get(i)[1]+") - " );
-		}
-		
-		
-	
-}
-
-	
-public static void printSolution(int[][] matrix) {
+	public static void printSolution(int[][] matrix) {
 		
 		
 		// TODO Auto-generated method stub
@@ -187,8 +169,5 @@ public static void printSolution(int[][] matrix) {
 		}	
 		return true;
 	}
-	
-	
-
  
 }

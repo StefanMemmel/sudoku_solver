@@ -7,17 +7,16 @@ public class App {
 	private static Scanner scanner;
 
 	public static void main(String[] args) {
-// TODO Auto-generated method stub
+
 		System.out.println("This is commandline programm for solving sudokus ");
 		System.out.println(
 				"You have to enter your sudoku line by line. \n For empty cells please enter a zero (0). \n Don`t use blanks, just digits!");
 		System.out.println("---- Ready? Let`s start! ----");
 		commandlineApp();
-
 	}
 
 	private static void commandlineApp() {
-// TODO Auto-generated method stub
+
 		int[][] matrix = new int[9][9];
 
 		scanner = new Scanner(System.in);
@@ -46,7 +45,7 @@ public class App {
 	}
 
 	private static boolean isAccepted(String inputString) {
-// TODO Auto-generated method stub
+
 		if (inputString.length() == 9) {
 
 			try {

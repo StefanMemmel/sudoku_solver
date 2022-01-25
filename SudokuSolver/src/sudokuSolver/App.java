@@ -28,9 +28,7 @@ public class App {
 			inputString = scanner.nextLine();
 			if (isAccepted(inputString)) {
 				for (int c = 0; c < 9; c++) {
-					matrix[index][c] = Integer.parseInt(String.valueOf(inputString.charAt(c))); // (int)
-																								// inputString.charAt(index)-16;
-																								// //ASCII
+					matrix[index][c] = Integer.parseInt(String.valueOf(inputString.charAt(c)));  
 
 				}
 				index++;
@@ -40,7 +38,7 @@ public class App {
 		Sudoku.printSolution(matrix);
 
 		System.out.println("The solution of your sudoku is:");
-		Sudoku.printSolution(Sudoku.solvePrepare(matrix));
+		Sudoku.printSolution(Sudoku.getSolution(matrix));
 
 	}
 

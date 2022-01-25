@@ -12,7 +12,7 @@ public Sudoku(){
 	
 }
 
-	public static int [][] solvePrepare(int[][] matrix) {
+	public static int [][] getSolution(int[][] matrix) {
 		// TODO Auto-generated method stub
 		/*add error cells to the list with the 0-cells and start to solve the sudoku*/
 		 int ErrorCell[]={-1,-1};

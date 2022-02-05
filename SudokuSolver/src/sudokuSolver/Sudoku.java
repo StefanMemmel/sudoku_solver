@@ -77,7 +77,7 @@ public Sudoku(){
 			c_n=findFirstZero(matrix)[1];
  
 			do{		
-				newDigit = getNumberFromBlock(get3Block(matrix, r_n, c_n),newDigit) ;  // hier ziehen aus Quadrat
+				newDigit = getNumberFromBlock(get3Block(matrix, r_n, c_n),newDigit) ;   
 				if(newDigit<=9){
 				matrix[r_n][c_n]=newDigit;
 				}else{

@@ -68,13 +68,8 @@ public Sudoku(){
 	
 	 
 	private static int[][] solve(int[][] matrix, int startDigit){
-
- 
 		int r_n, c_n, r_nminus1, c_nminus1; // if the 
- 	
-		
-		int	newDigit=startDigit;
-	 
+		int	newDigit=startDigit;	 
 	  
 		while(findFirstZero(matrix)[0]!=-1){  // no 0 in the sudoku anymore
 			
@@ -94,15 +89,12 @@ public Sudoku(){
 					 matrix[r_nminus1][c_nminus1]=0;  // set last cell =0
 					matrix[r_n][c_n]=0;
 				 	solve(matrix,startDigit);
-			 
 				}
 				
 			}while(rowAndColumnUnique(matrix, r_n, c_n)==false); 
 			int cell[]={r_n, c_n};  // !!!!
 			freeCells.add(cell); //add current Element
-			 
-			newDigit= 0; // start search for the digit in the next cell with newDigit=0
-			
+			newDigit= 0; // start search for the digit in the next cell with newDigit=0			
 		}
 		return matrix;
 	}

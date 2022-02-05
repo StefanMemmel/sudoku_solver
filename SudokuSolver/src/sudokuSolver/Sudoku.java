@@ -2,29 +2,88 @@ package sudokuSolver;
 
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import javax.sql.rowset.RowSetWarning;
 
 public class Sudoku {
-private static ArrayList<int[]>  freeCells = new ArrayList<int[]>();
+ 
  
 public Sudoku(){
 	
 }
 
+
+private static ArrayList<int[]>  freeCells = new ArrayList<int[]>();
 	public static int [][] getSolution(int[][] matrix) {
 		// TODO Auto-generated method stub
-		/*add error cells to the list with the 0-cells and start to solve the sudoku*/
-		 int ErrorCell[]={-1,-1};
-		freeCells.add(ErrorCell);
-		return solve(matrix, 0);
+		/*wrapper for the function solve*/ 
+		
+		 	return solve(matrix, 0); 	// the startDigit for the first blank =0; 
+									//all digits are possible for the first blank	
 	}
+	
+public static void printSolution(int[][] matrix) {
+		
+		
+		// TODO Auto-generated method stub
 
+		for(int r=0; r<matrix[0].length;r++){
+			for(int c=0; c<matrix[1].length;c++){ 
+			System.out.print(matrix[r][c] +" ");	
+				
+			}		
+			System.out.println();
+		}
+		
+	}
+	@SuppressWarnings("finally")
+	private static int[][] solve(int[][] matrix, int startDigit){
+
+		int r_n, c_n, r_nminus1, c_nminus1;    
+		boolean EmergencyExit =false; // realizes an EmergencyExit if the recursion is to deep for the current heap
+		int	newDigit=startDigit;
+	 
+		while(findFirstZero(matrix)[0]!=-1 && EmergencyExit ==false){  // no 0 in the sudoku anymore
+			
+			r_n=findFirstZero(matrix)[0];
+			c_n=findFirstZero(matrix)[1];
+ 
+			do{		
+				newDigit = getNumberFromBlock(get3Block(matrix, r_n, c_n),newDigit) ;  // hier ziehen aus Quadrat
+				if(newDigit<=9){
+				matrix[r_n][c_n]=newDigit;
+				}else{
+					r_nminus1= freeCells.get(freeCells.size()-1)[0];
+					c_nminus1= freeCells.get(freeCells.size()-1)[1];
+					freeCells.remove(freeCells.size()-1 ); //delete last element
+				 
+					 startDigit=matrix[r_nminus1][c_nminus1];
+					 matrix[r_nminus1][c_nminus1]=0;  // set last cell =0
+					matrix[r_n][c_n]=0;			
+					EmergencyExit=true; // if the call of solve(m,s) fails the loop is broken
+					try {
+				 	matrix= solve(matrix,startDigit);
+					}
+					catch(StackOverflowError e) {			
+						System.out.println("StackOverflowError - Increase the size of your heap "+ EmergencyExit +" ");						
+					} 
+			 
+				}
+				
+			}while(rowAndColumnUnique(matrix, r_n, c_n)==false  && EmergencyExit ==false); 
+			int cell[]={r_n, c_n};  // !!!!
+			freeCells.add(cell); //add current Element			 
+			newDigit= 0; // start search for the digit in the next cell with newDigit=			
+		}
+		return matrix;
+	}
+	
+	
 	static int getNumberFromBlock(int[][] matrix, int startDigit){
 		// Returns the lowest missing digit, that is greater then the startdigit
 		// there is no check whether the digit is a number <=9, that has to be done in the calling function 
 		int number =startDigit;
-		 
 		int row= matrix[0].length;
 		int column=matrix[1].length;
 		
@@ -42,11 +101,9 @@ public Sudoku(){
 			}
 		  
 		}while(FlagReturn);  //while(FlagReturn && digit <10 ); False Intension 
-		
-		
-		return number;
-		
+		return number;	
 	}
+	
 	
 	static int[][] get3Block(int[][] matrix, int row, int column){
  
@@ -66,7 +123,7 @@ public Sudoku(){
 		
 	}
 	
-	 
+	 /*
 	private static int[][] solve(int[][] matrix, int startDigit){
 
  
@@ -93,17 +150,27 @@ public Sudoku(){
 					 startDigit=matrix[r_nminus1][c_nminus1];
 					 matrix[r_nminus1][c_nminus1]=0;  // set last cell =0
 					matrix[r_n][c_n]=0;
-				 	solve(matrix,startDigit);
-			 
-				}
-				
+					try {
+					//
+						solve(matrix,startDigit);
+				// 	 matrix= solve(matrix,startDigit);
+					}catch(java.lang.StackOverflowError e) {
+						System.out.println("STACKOVERFLOW!!! Please increase the size of your heap!");
+						 
+						break;  // return unfished matrix and start with this matrix again
+					}
+		
+				}  
 			}while(rowAndColumnUnique(matrix, r_n, c_n)==false); 
 			int cell[]={r_n, c_n};  // !!!!
 			freeCells.add(cell); //add current Element
 			 
 			newDigit= 0; // start search for the digit in the next cell with newDigit=0
 			
-		}
+		//	printSolution(matrix);
+		//	System.out.println("-------------------------------");
+			int l = freeCells.size();
+			}
 		return matrix;
 	}
 		
@@ -120,7 +187,7 @@ public Sudoku(){
 			System.out.println();
 		}
 		
-	}
+	}*/
 	static int [] findFirstZero(int[][] matrix){
 		int result[]={0,0};
 		for(int r=0; r<9;r++){

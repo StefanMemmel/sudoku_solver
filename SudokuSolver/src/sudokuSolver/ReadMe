@@ -1,0 +1,4 @@
+The purpose of this project is to solve sudokus. It contains of two classes:
+•	The class App.java realises a command-line application to enter a sudoku line by line.
+•	The class Sudoku.java provides the actual algorithm to solve the sudoku.
+For further information please take a look on my personal blog: https://stefanmemmel.blog/2022/02/16/a-description-of-an-approach-to-solve-sudokus-with-java/

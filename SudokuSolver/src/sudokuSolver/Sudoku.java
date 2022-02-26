@@ -15,6 +15,9 @@ public Sudoku(){
 
 
 private static ArrayList<int[]>  freeCells = new ArrayList<int[]>();
+
+
+
 	public static int [][] getSolution(int[][] matrix) {
 		// TODO Auto-generated method stub
 		/*wrapper for the function solve*/ 
@@ -23,7 +26,7 @@ private static ArrayList<int[]>  freeCells = new ArrayList<int[]>();
 									//all digits are possible for the first blank	
 	}
 	
-public static void printSolution(int[][] matrix) {
+public static void printSudoku(int[][] matrix) {
 		
 		
 		// TODO Auto-generated method stub
@@ -71,7 +74,7 @@ public static void printSolution(int[][] matrix) {
 				}
 				
 			}while(rowAndColumnUnique(matrix, r_n, c_n)==false  && EmergencyExit ==false); 
-			int cell[]={r_n, c_n};  // !!!!
+			int cell[]={r_n, c_n};   
 			freeCells.add(cell); //add current Element			 
 			newDigit= 0; // start search for the digit in the next cell with newDigit=			
 		}
@@ -108,19 +111,17 @@ public static void printSolution(int[][] matrix) {
  
 		int [][]Block= new int [3][3];
 		
-		int rowStart= row - row%3; // dezimalstellen sollten automatisch wegfallen
+		int rowStart= row - row%3; // decimal place behind the dot are cut off automatically 
 		int columnStart = column - column %3;
 		
 		for(int r=0; r<3; r++){
 			for(int c=0;c<3; c++ ){
 				Block[r][c]=matrix[rowStart+r][columnStart+c];
 			}
-		}
-		
-		
-		return Block;
-		
+		}	
+		return Block;		
 	}
+	
 	
 	static int [] findFirstZero(int[][] matrix){
 		int result[]={0,0};
@@ -128,7 +129,6 @@ public static void printSolution(int[][] matrix) {
 			boolean zero=false;
 			for(int c=0; c<9;c++){
 				if(matrix[r][c]==0){
-					//System.out.println(matrix[r][c] + " _");
 					result[0]=r;
 					result[1]=c;
 					zero=true;
@@ -142,8 +142,6 @@ public static void printSolution(int[][] matrix) {
 		result[0]=-1; result[1]=-1; //no zeros in the array
 		}
 		}
-		
-		 
 		return result;
 	}
 	

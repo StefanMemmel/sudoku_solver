@@ -33,8 +33,12 @@ public static void printSudoku(int[][] matrix) {
 
 		for(int r=0; r<matrix[0].length;r++){
 			for(int c=0; c<matrix[1].length;c++){ 
+			if(matrix[r][c]==0) {
+				System.out.print("_ ");
+			}
+			else {
 			System.out.print(matrix[r][c] +" ");	
-				
+			}
 			}		
 			System.out.println();
 		}
@@ -42,7 +46,7 @@ public static void printSudoku(int[][] matrix) {
 	}
 	private static int[][] solve(int[][] matrix, int startDigit){
 
-		int r_n, c_n, r_nminus1, c_nminus1;    
+		int r_n, c_n, r_nminus1, c_nminus1, listindex;    
 		boolean EmergencyExit =false; // realizes an EmergencyExit if the recursion is to deep for the current heap
 		int	newDigit=startDigit;
 	 
@@ -52,10 +56,29 @@ public static void printSudoku(int[][] matrix) {
 			c_n=findFirstZero(matrix)[1];
  
 			do{		
+				printSudoku(matrix);
+				System.out.println("freecells size " + freeCells.size());
 				newDigit = getNumberFromBlock(get3Block(matrix, r_n, c_n),newDigit) ;  // hier ziehen aus Quadrat
 				if(newDigit<=9){
 				matrix[r_n][c_n]=newDigit;
-				}else{
+				}else{//hier aendert	
+					int [] BlankAtBlock=findBlankAtBlock(r_n,c_n);
+					if(BlankAtBlock!=null) {
+						r_nminus1=BlankAtBlock[0];
+						c_nminus1=BlankAtBlock[1];
+						startDigit=matrix[r_nminus1][c_nminus1];
+						matrix[r_nminus1][c_nminus1]=0;  // set last cell =0
+						matrix[r_n][c_n]=0;		
+						listindex=BlankAtBlock[2]; // all entries greater then that entry have to be deleted 
+						System.out.println("Listindex  " + listindex);
+						
+						while(freeCells.size()>listindex) {
+							matrix[freeCells.get(listindex)[0]][freeCells.get(listindex)[1]]=0; //refill with zeros
+							freeCells.remove(listindex);
+						}
+						
+					}
+					else {
 					r_nminus1= freeCells.get(freeCells.size()-1)[0];
 					c_nminus1= freeCells.get(freeCells.size()-1)[1];
 					freeCells.remove(freeCells.size()-1 ); //delete last element
@@ -70,7 +93,7 @@ public static void printSudoku(int[][] matrix) {
 					catch(StackOverflowError e) {			
 						System.out.println("StackOverflowError - Increase the size of your heap "+ EmergencyExit +" ");						
 					} 
-			 
+					}
 				}
 				
 			}while(rowAndColumnUnique(matrix, r_n, c_n)==false  && EmergencyExit ==false); 
@@ -82,6 +105,30 @@ public static void printSudoku(int[][] matrix) {
 	}
 	
 	
+	private static int[] findBlankAtBlock(int r_n, int c_n) {
+		// TODO Auto-generated method stub
+		int r_nminus1, c_nminus1, i=0;
+		
+		do {
+		if(freeCells.size()<i) { // no blank in the same block
+			return null;
+		}else {
+			i++;
+		}
+		r_nminus1= freeCells.get(freeCells.size()-i)[0];
+		c_nminus1= freeCells.get(freeCells.size()-i)[1];
+		
+		
+		
+		
+		
+		}while((r_nminus1- r_nminus1%3== r_n-r_n%3) & (c_nminus1- c_nminus1%3== c_n-c_n%3)); // in the same 3x3 -block
+		
+		int[] result={r_nminus1, c_nminus1, freeCells.size()-i };
+		
+		return result;
+	}
+
 	static int getNumberFromBlock(int[][] matrix, int startDigit){
 		// Returns the lowest missing digit, that is greater then the startdigit
 		// there is no check whether the digit is a number <=9, that has to be done in the calling function 

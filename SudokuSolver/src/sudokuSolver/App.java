@@ -7,12 +7,13 @@ public class App {
 	private static Scanner scanner;
 
 	public static void main(String[] args) {
-
+/*
 		System.out.println("This is commandline programm for solving sudokus ");
 		System.out.println(
 				"You have to enter your sudoku line by line. \n For empty cells please enter a zero (0). \n Don`t use blanks, just digits!");
 		System.out.println("---- Ready? Let`s start! ----");
-		commandlineApp();
+		//commandlineApp();*/
+		test();
 	}
 
 	private static void commandlineApp() {
@@ -35,10 +36,11 @@ public class App {
 			}
 		} while (index < 9);
 		System.out.println("The Sudoku you entered is:");
-		Sudoku.printSolution(matrix);
+		Sudoku.getSolution(matrix);
 
 		System.out.println("The solution of your sudoku is:");
-		Sudoku.printSolution(Sudoku.getSolution(matrix));
+		Sudoku.getSolution(Sudoku.getSolution(matrix));
+
 
 	}
 
@@ -62,5 +64,33 @@ public class App {
 
 		return false;
 	}
-
+ static void test() {
+	 
+	 int [][]schwer26Jan= {{0,4,0,2,3,0,7,0,0},{5,3,0,0,7,0,0,0,0},{0,0,1,4,0,0,6,0,0},{0,0,9,0,0,0,0,0,0},{0,0,0,6,0,8,0,0,2},{0,0,5,0,0,9,0,8,0},{7,0,2,0,0,0,0,0,8},{1,0,0,0,0,0,9,0,7},{0,5,0,3,0,7,0,6,1}};
+//	 Sudoku.printSolution(Sudoku.getSolution(schwer26Jan));
+int [][]Mittel= {{8,5,3,0,0,0,7,9,4},{0,0,9,0,4,0,0,0,0},{0,0,7,5,9,0,1,0,3},{0,0,0,4,1,0,0,6,9},{0,0,0,0,0,3,0,0,0},{3,1,5,0,2,9,0,0,7},{2,0,6,0,0,0,0,0,0},{0,0,0,0,7,6,0,0,0},{0,7,1,8,0,0,2,3,6} };
+	 int [][]schwer= {{0,4,3,0,0,0,0,0,1},{0,0,6,0,3,0,7,0,0},{8,0,0,0,6,0,0,2,0}, {1,0,0,0,2,8,0,0,0}, {0,5,0,0,0,0,6,8,0},{0,0,0,0,0,9,0,1,0},{0,8,5,1,0,0,0,0,7},{0,0,0,0,0,4,0,0,0},{0,0,0,3,0,0,9,0,8}};
+	 int [][]wikiExample = {{5,3,0,0,7,0,0,0,0},{6,0,0,1,9,5,0,0,0},{0,9,8,0,4,0,0,6,0},{8,0,0,0,6,0,0,0,3},{4,0,0,8,5,3,0,0,1},{7,0,0,0,2,0,0,0,6},{0,6,0,0,0,0,2,8,0},{0,0,0,4,1,9,0,0,5},{0,0,0,0,8,0,0,7,9}};
+	 int [][]ursprungsProblem= {{0,4,3,0,0,0,0,0,0}, {0,0,6,0,3,0,7,0,0},{8,0,0,0,6,0,0,2,0,0},{1,0,0,0,2,8,0,0,0},{0,5,0,0,0,0,6,8,0},{0,0,0,0,0,9,0,1,0},{0,8,5,1,0,0,0,0,7},{0,0,0,0,0,4,0,0,0},{0,0,0,3,0,0,9,0,8}};
+//		Sudoku.printSudoku(Sudoku.getSolution(wikiEx));
+		System.out.println("---------------------------------------------");
+		 
+	 Sudoku.printSudoku(ursprungsProblem);
+	 System.out.println("----------------------");
+	 Sudoku.printSudoku(Sudoku.getSolution(ursprungsProblem));
+	 /*
+	  * 
+	  
+ Sudoku.getSolution(Sudoku.getSolution(schwer));
+	Sudoku.printSudoku(Mittel);
+	
+	 System.out.println("---------------------------------------------");
+	Sudoku.printSudoku(Sudoku.getSolution(Mittel));
+	 System.out.println("-----------------------wikiEx----------------------");
+		 Sudoku.printSudoku(wikiExample);
+		 System.out.println("---------------------------------------------");
+			Sudoku.printSudoku(Sudoku.getSolution(wikiExample));		
+		*/
+	//	Sudoku.printSudoku(Sudoku.getSolution(wikiEx));
+ }
 }
